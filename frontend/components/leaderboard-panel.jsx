@@ -1,23 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowDownRight, ArrowUpRight, BarChart3, Flame, Medal, Minus, Trophy } from "lucide-react";
+import { BarChart3, Flame, Medal, Trophy } from "lucide-react";
 import BorderGlow from "@/components/BorderGlow";
 import RankBadge from "@/components/rank-badge";
 import { formatDelta } from "@/lib/utils";
-
-function Momentum({ value }) {
-  const positive = value > 0;
-  const negative = value < 0;
-  const Icon = positive ? ArrowUpRight : negative ? ArrowDownRight : Minus;
-
-  return (
-    <span className={`momentum-chip ${positive ? "delta-positive" : negative ? "delta-negative" : "delta-neutral"}`}>
-      <Icon size={14} />
-      {formatDelta(value)}
-    </span>
-  );
-}
 
 function SegmentBar({ hostel }) {
   const segments = [
@@ -45,7 +32,6 @@ function SegmentBar({ hostel }) {
 }
 
 export default function LeaderboardPanel({ payload }) {
-  const hasMomentum = payload.leaderboard.some((hostel) => Math.abs(hostel.momentumDelta || 0) > 0.01);
   const rowVariants = {
     initial: {},
     animate: {
@@ -87,17 +73,14 @@ export default function LeaderboardPanel({ payload }) {
       icon: BarChart3
     }
   ];
-
-  if (hasMomentum) {
-    summaryCards.push({
-      label: "Biggest Climber",
-      value: payload.summary.biggestClimber?.name || "No change yet",
-      subtext: payload.summary.biggestClimber
-        ? formatDelta(payload.summary.biggestClimber.momentumDelta)
-        : "needs two weeks of data",
-      icon: Flame
-    });
-  }
+  summaryCards.push({
+    label: "Biggest Climber",
+    value: payload.summary.biggestClimber?.name || "No change yet",
+    subtext: payload.summary.biggestClimber
+      ? formatDelta(payload.summary.biggestClimber.momentumDelta)
+      : "needs two weeks of data",
+    icon: Flame
+  });
 
   return (
     <section className="panel-stack">
@@ -120,12 +103,12 @@ export default function LeaderboardPanel({ payload }) {
         </div>
 
         <motion.div
-          className={`leaderboard-table ${hasMomentum ? "leaderboard-with-momentum" : "leaderboard-no-momentum"}`}
+          className="leaderboard-table"
           variants={rowVariants}
           initial="initial"
           animate="animate"
         >
-          <div className={`leaderboard-head ${hasMomentum ? "leaderboard-with-momentum" : "leaderboard-no-momentum"}`}>
+          <div className="leaderboard-head">
             <span>#</span>
             <span>Hostel</span>
             <span>Total</span>
@@ -133,13 +116,12 @@ export default function LeaderboardPanel({ payload }) {
             <span>Electricity</span>
             <span>Waste</span>
             <span>Events</span>
-            {hasMomentum ? <span>Momentum</span> : null}
           </div>
 
           {payload.leaderboard.map((hostel) => (
             <motion.article
               key={hostel.hostelId}
-              className={`leaderboard-row ${hasMomentum ? "leaderboard-with-momentum" : "leaderboard-no-momentum"}`}
+              className="leaderboard-row"
               variants={itemVariants}
               whileHover={{ x: 6, scale: 1.01 }}
             >
@@ -155,7 +137,6 @@ export default function LeaderboardPanel({ payload }) {
               <span>{hostel.electricityScore.toFixed(1)}</span>
               <span>{hostel.wasteScore.toFixed(1)}</span>
               <span>{hostel.energyScore.toFixed(1)}</span>
-              {hasMomentum ? <Momentum value={hostel.momentumDelta} /> : null}
             </motion.article>
           ))}
         </motion.div>

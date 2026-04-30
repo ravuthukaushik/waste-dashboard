@@ -1082,15 +1082,6 @@ textarea {
   display: grid;
   gap: 14px;
   align-items: center;
-}
-
-.leaderboard-head.leaderboard-with-momentum,
-.leaderboard-row.leaderboard-with-momentum {
-  grid-template-columns: 64px 1.5fr 100px 1.5fr repeat(4, 90px);
-}
-
-.leaderboard-head.leaderboard-no-momentum,
-.leaderboard-row.leaderboard-no-momentum {
   grid-template-columns: 64px 1.5fr 100px 1.5fr repeat(3, 90px);
 }
 
@@ -1169,25 +1160,6 @@ textarea {
 .segment-bar span {
   display: block;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
-}
-
-.delta-positive {
-  color: var(--green);
-}
-
-.delta-negative {
-  color: var(--danger);
-}
-
-.delta-neutral {
-  color: var(--muted);
-}
-
-.momentum-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-weight: 600;
 }
 
 .chart-tooltip {
@@ -1373,15 +1345,8 @@ textarea {
     margin-right: auto;
   }
 
-  .leaderboard-head.leaderboard-with-momentum,
-  .leaderboard-row.leaderboard-with-momentum {
-    grid-template-columns: 52px 1.3fr 90px 1fr repeat(4, 76px);
-    gap: 10px;
-    font-size: 0.92rem;
-  }
-
-  .leaderboard-head.leaderboard-no-momentum,
-  .leaderboard-row.leaderboard-no-momentum {
+  .leaderboard-head,
+  .leaderboard-row {
     grid-template-columns: 52px 1.3fr 90px 1fr repeat(3, 76px);
     gap: 10px;
     font-size: 0.92rem;
