@@ -1419,4 +1419,30 @@ textarea {
   .auth-card h1 {
     font-size: clamp(2.3rem, 9vw, 3.4rem);
   }
+  .stars-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: black;
+  pointer-events: none;
+}
+
+.stars-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(2px 2px at 20% 30%, white, transparent),
+    radial-gradient(1px 1px at 70% 80%, white, transparent),
+    radial-gradient(2px 2px at 40% 60%, white, transparent),
+    radial-gradient(1px 1px at 90% 10%, white, transparent),
+    radial-gradient(1px 1px at 50% 50%, white, transparent);
+  animation: twinkle 5s infinite alternate;
+  opacity: 0.6;
+}
+
+@keyframes twinkle {
+  from { opacity: 0.3; }
+  to { opacity: 0.8; }
+}
 }
